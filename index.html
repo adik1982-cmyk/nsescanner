@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +8,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="NSE Screener"/>
-  <link rel="manifest" href="manifest.json"/>
-  <link rel="apple-touch-icon" href="icons/icon-192.png"/>
+  <link rel="manifest" href="./manifest.json"/>
+  <link rel="apple-touch-icon" href="./icons/icon-192.png"/>
   <title>NSE Screener</title>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -898,8 +899,9 @@ function init(){
 
   // SW
   if('serviceWorker' in navigator){
-    navigator.serviceWorker.getRegistrations().then(regs=>regs.forEach(r=>r.unregister()));
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
+    navigator.serviceWorker.register('./sw.js', {scope:'./'})
+      .then(r=>console.log('SW registered'))
+      .catch(e=>console.log('SW error',e));
   }
 }
 init();
