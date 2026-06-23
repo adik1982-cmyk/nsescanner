@@ -1,8 +1,18 @@
-const CACHE = 'nse-screener-v1';
-const ASSETS = ['/index.html', '/manifest.json'];
+const CACHE = 'nse-screener-v2';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
+];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => c.addAll(ASSETS))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
@@ -23,7 +33,7 @@ self.addEventListener('push', e => {
   const d = e.data ? e.data.json() : {};
   e.waitUntil(self.registration.showNotification(d.title || 'NSE Alert', {
     body: d.body || 'New signals detected!',
-    icon: '/icons/icon-192.png',
+    icon: './icons/icon-192.png',
     tag: 'nse-alert',
     renotify: true
   }));
